@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/mavi"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_height="match_parent"
+    tools:context=".animasyon_page">
+<ImageView
+    android:layout_marginRight="35dp"
+    android:layout_marginLeft="35dp"
+    android:id="@+id/img_animasyon"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:src="@drawable/logo"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/beyaz"
+        android:id="@+id/text_animasyon"
+        android:layout_marginTop="20dp"
+        android:text="Alisverisin merkezi"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:gravity="center"/>
+
+</LinearLayout>

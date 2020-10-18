@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Kayit_ol">
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/toolbar_kaydol">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kaydol"
+            android:textColor="#000000"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:gravity="left"/>
+    </androidx.appcompat.widget.Toolbar>
+
+    <include layout="@layout/tek_kisisel_bilgi"/>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_marginRight="3dp"
+        android:layout_marginTop="8dp"
+        app:boxBackgroundColor="@color/mavi"
+        app:boxStrokeColor="@color/mavi"
+        android:outlineSpotShadowColor="@color/mavi"
+        android:textColorHint="@color/mavi"
+        android:outlineAmbientShadowColor="@color/mavi"
+        android:layout_height="wrap_content">
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:hint="Sifre"
+            android:ems="10"
+            android:id="@+id/kayitol_sifre" />
+    </com.google.android.material.textfield.TextInputLayout> <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+    app:boxBackgroundColor="@color/mavi"
+    app:boxStrokeColor="@color/mavi"
+    android:outlineSpotShadowColor="@color/mavi"
+    android:textColorHint="@color/mavi"
+    android:outlineAmbientShadowColor="@color/mavi"
+    android:layout_marginTop="8dp"
+        android:layout_marginRight="3dp"
+        android:layout_height="wrap_content">
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:hint="again sifre"
+            android:ems="10"
+            android:id="@+id/kayitol_againsifre" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:padding="5dp"
+        android:textSize="20dp"
+        android:layout_marginRight="50dp"
+        android:layout_gravity="center"
+        android:text="Kaydol"
+        android:background="@drawable/yuvarlak_mavi"
+        android:textColor="@color/beyaz"
+
+        android:layout_marginTop="8dp"
+        android:id="@+id/yenikyt_btn"/>
+
+</LinearLayout>

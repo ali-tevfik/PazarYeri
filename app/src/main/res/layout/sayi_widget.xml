@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="horizontal"
+    android:background="@drawable/yuvarlak_acikmavi"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:gravity="center"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:paddingRight="5dp"
+        android:paddingLeft="5dp"
+        android:id="@+id/tek_adet_azalt"
+        android:textColor="@color/beyaz"
+        android:background="@drawable/yuvarlak_mavi"
+        android:text="-"/>
+    <TextView
+        android:gravity="center"
+        android:id="@+id/tek_urun_adet"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:text="5"/>
+    <TextView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:id="@+id/tek_adet_arttir"
+        android:paddingRight="5dp"
+        android:paddingLeft="5dp"
+        android:textColor="@color/beyaz"
+        android:background="@drawable/yuvarlak_mavi"
+        android:text="+"/>
+
+
+</LinearLayout>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#3f5aa6</color>
+    <color name="turuncu">#f4a72c</color>
+    <color name="yesil">#6cba29</color>
+    <color name="mavi">#3f5aa6</color>
+    <color name="acik_mavi">#bacaff</color>
+    <color name="beyaz">#ffffff</color>
+</resources>

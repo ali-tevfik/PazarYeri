@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="wrap_content"
+            app:boxBackgroundColor="@color/mavi"
+            app:boxStrokeColor="@color/mavi"
+            android:outlineSpotShadowColor="@color/mavi"
+            android:textColorHint="@color/mavi"
+            android:outlineAmbientShadowColor="@color/mavi"
+            android:layout_weight="2"
+            android:layout_marginRight="3dp"
+            android:layout_height="wrap_content">
+
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:hint="Isim"
+                android:ems="10"
+                android:id="@+id/kisisel_bilgi_isim" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="wrap_content"
+            app:boxBackgroundColor="@color/mavi"
+            app:boxStrokeColor="@color/mavi"
+            android:outlineSpotShadowColor="@color/mavi"
+            android:textColorHint="@color/mavi"
+            android:outlineAmbientShadowColor="@color/mavi"
+            android:layout_marginLeft="3dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content">
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:hint="Soyisim"
+                android:ems="10"
+                android:id="@+id/kisisel_bilgi_soyad" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+    </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+
+        app:boxBackgroundColor="@color/mavi"
+        app:boxStrokeColor="@color/mavi"
+        android:outlineSpotShadowColor="@color/mavi"
+        android:textColorHint="@color/mavi"
+        android:outlineAmbientShadowColor="@color/mavi"
+        android:layout_marginRight="3dp"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content">
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:hint="Mail adresiniz"
+            android:ems="10"
+            android:id="@+id/kisisel_bilgi_mail" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+
+        app:boxBackgroundColor="@color/mavi"
+        app:boxStrokeColor="@color/mavi"
+        android:outlineSpotShadowColor="@color/mavi"
+        android:textColorHint="@color/mavi"
+        android:outlineAmbientShadowColor="@color/mavi"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="3dp"
+        android:layout_height="wrap_content">
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:maxLength="10"
+            android:hint="Telefon numarasi"
+            android:ems="10"
+            android:id="@+id/kisisel_bilgi_telno" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+
+        app:boxBackgroundColor="@color/mavi"
+        app:boxStrokeColor="@color/mavi"
+        android:outlineSpotShadowColor="@color/mavi"
+        android:textColorHint="@color/mavi"
+        android:outlineAmbientShadowColor="@color/mavi"
+        android:layout_marginRight="3dp"
+        android:layout_height="wrap_content">
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Adress"
+            android:ems="10"
+            android:id="@+id/kisisel_adres" />
+    </com.google.android.material.textfield.TextInputLayout>
+<com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+
+    app:boxBackgroundColor="@color/mavi"
+    app:boxStrokeColor="@color/mavi"
+    android:outlineSpotShadowColor="@color/mavi"
+    android:textColorHint="@color/mavi"
+    android:outlineAmbientShadowColor="@color/mavi"
+        android:layout_marginRight="3dp"
+        android:layout_height="wrap_content">
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Sehir"
+            android:ems="10"
+            android:id="@+id/kisisel_sehir" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <LinearLayout
+
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_weight="2"
+            app:boxBackgroundColor="@color/mavi"
+            app:boxStrokeColor="@color/mavi"
+            android:outlineSpotShadowColor="@color/mavi"
+            android:textColorHint="@color/mavi"
+            android:outlineAmbientShadowColor="@color/mavi"
+            android:layout_marginRight="3dp"
+            android:layout_height="wrap_content">
+
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:hint="Postcode"
+                android:ems="10"
+                android:id="@+id/kisisel_bilgi_postcode" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="3dp"
+            app:boxBackgroundColor="@color/mavi"
+            app:boxStrokeColor="@color/mavi"
+            android:outlineSpotShadowColor="@color/mavi"
+            android:textColorHint="@color/mavi"
+            android:outlineAmbientShadowColor="@color/mavi"
+            android:layout_weight="4"
+            android:layout_height="wrap_content">
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:hint="Ev numarasi"
+                android:maxLength="3"
+                android:ems="10"
+                android:id="@+id/kisisel_bilgi_evnumarasi" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_weight="4"
+            app:boxBackgroundColor="@color/mavi"
+            app:boxStrokeColor="@color/mavi"
+            android:outlineSpotShadowColor="@color/mavi"
+            android:textColorHint="@color/mavi"
+            android:outlineAmbientShadowColor="@color/mavi"
+            android:layout_height="wrap_content">
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:maxLength="2"
+                android:hint="Kat"
+                android:ems="10"
+                android:id="@+id/kisisel_bilgi_kat" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
