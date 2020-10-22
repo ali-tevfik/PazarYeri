@@ -1,4 +1,5 @@
 package com.example.pazaryeri;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -6,7 +7,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -23,9 +26,11 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.pazaryeri.adapter.urun_adapter;
 import com.example.pazaryeri.helper.dict;
 import com.example.pazaryeri.helper.urun_helper;
@@ -38,6 +43,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +59,7 @@ public class Urunler extends AppCompatActivity implements adet_interface {
     String gelen_sayfa_name, gelen_sayfa_logo;
     TextView satici_adi, satici_telno, satici_info;
     ImageView satici_logo;
+    Dialog progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +67,7 @@ public class Urunler extends AppCompatActivity implements adet_interface {
         setContentView(R.layout.activity_urunler);
         idupdate();
         helper.clear();
+        showdialog("Urunler yukleniyor..");
         toolbar();
         collops();
         gelenveriler();
@@ -67,6 +75,7 @@ public class Urunler extends AppCompatActivity implements adet_interface {
 
 
     }
+
     private void setdata() {
         //get data for database
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Sirketler");
@@ -121,10 +130,10 @@ public class Urunler extends AppCompatActivity implements adet_interface {
         for (int i = 0; objects.size() > i; i++) {
             final urun_helper oneitem = new urun_helper();
             oneitem.setAdet(0);
-            if (eskisiparis_arr.size()>0){
-                for (dict a:eskisiparis_arr){
-                    Log.d("idDDDDDDD",objects.get(i).getObjectId());
-                    if (a.getKey().matches(objects.get(i).getObjectId())){
+            if (eskisiparis_arr.size() > 0) {
+                for (dict a : eskisiparis_arr) {
+                    Log.d("idDDDDDDD", objects.get(i).getObjectId());
+                    if (a.getKey().matches(objects.get(i).getObjectId())) {
 
                         oneitem.setAdet(Integer.parseInt(a.getValue()));
                     }
@@ -150,29 +159,29 @@ public class Urunler extends AppCompatActivity implements adet_interface {
         }
         datayedekle();
 
+        progressBar.cancel();
         recycview(helper);
 
 
     }
 
 
-
-    ArrayList<urun_helper> yedek=new ArrayList<>();
+    ArrayList<urun_helper> yedek = new ArrayList<>();
 
     private void datayedekle() {
-            for (int i=0; helper.size()>i;i++){
-                urun_helper helper1= new urun_helper();
-                helper1.setAdet(helper.get(i).getAdet());
-                helper1.setUrun_id(helper.get(i).getUrun_id());
-                helper1.setAciklama(helper.get(i).getAciklama());
-                helper1.setCesit(helper.get(i).getCesit());
-                helper1.setResim_url(helper.get(i).getResim_url());
-                helper1.setFiyat(helper.get(i).getFiyat());
-                helper1.setGram(helper.get(i).getGram());
-                helper1.setIsim(helper.get(i).getIsim());
-                helper1.setSatici(helper.get(i).getSatici());
-                yedek.add(helper1);
-            }
+        for (int i = 0; helper.size() > i; i++) {
+            urun_helper helper1 = new urun_helper();
+            helper1.setAdet(helper.get(i).getAdet());
+            helper1.setUrun_id(helper.get(i).getUrun_id());
+            helper1.setAciklama(helper.get(i).getAciklama());
+            helper1.setCesit(helper.get(i).getCesit());
+            helper1.setResim_url(helper.get(i).getResim_url());
+            helper1.setFiyat(helper.get(i).getFiyat());
+            helper1.setGram(helper.get(i).getGram());
+            helper1.setIsim(helper.get(i).getIsim());
+            helper1.setSatici(helper.get(i).getSatici());
+            yedek.add(helper1);
+        }
 
     }
 
@@ -193,7 +202,7 @@ public class Urunler extends AppCompatActivity implements adet_interface {
 
     private void idupdate() {
         recyclerView = findViewById(R.id.urunlerrecyclerview);
-
+        progressBar = new Dialog(this);
         satici_adi = findViewById(R.id.sirket_bilgi_adi);
         satici_info = findViewById(R.id.sirket_bilgi_aciklama);
         satici_logo = findViewById(R.id.sirket_bilgi_logo);
@@ -213,7 +222,8 @@ public class Urunler extends AppCompatActivity implements adet_interface {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                Intent i = new Intent(Urunler.this, Anasayfa.class);
+                startActivity(i);
             }
         });
     }
@@ -256,15 +266,15 @@ public class Urunler extends AppCompatActivity implements adet_interface {
             searchView.setIconifiedByDefault(false);
         }
 
-        SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
+        final SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
             public boolean onQueryTextChange(String newText) {
                 // This is your adapter that will be filtered
 
                 helper.clear();
-                for (int i=0;yedek.size()>i;i++){
-                    if (yedek.get(i).getIsim().toLowerCase().contains(newText.toLowerCase())){
+                for (int i = 0; yedek.size() > i; i++) {
+                    if (yedek.get(i).getIsim().toLowerCase().contains(newText.toLowerCase())) {
 
-                        urun_helper helper1=new urun_helper();
+                        urun_helper helper1 = new urun_helper();
                         helper1.setAdet(yedek.get(i).getAdet());
                         helper1.setUrun_id(yedek.get(i).getUrun_id());
                         helper1.setAciklama(yedek.get(i).getAciklama());
@@ -276,8 +286,7 @@ public class Urunler extends AppCompatActivity implements adet_interface {
                         helper1.setSatici(yedek.get(i).getSatici());
                         helper.add(helper1);
 
-                    }
-                    else {
+                    } else {
 
                     }
                 }
@@ -310,13 +319,35 @@ public class Urunler extends AppCompatActivity implements adet_interface {
         menu.findItem(R.id.sepet_menu).getActionView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Urunler.this, Siparis_sayfasi.class);
-                i.putExtra("sayfa_name",gelen_sayfa_name);
-                startActivity(i);
+                nerden=true;
+
+
+                showdialog("Siparis Listeniz Guncelleniyor!!");
+
+                urun_adapter.kaydet();
+
+
+
             }
         });
 
         return super.onCreateOptionsMenu(menu);
+    }
+
+    private void showdialog(String txt) {
+        progressBar.setCanceledOnTouchOutside(false);
+        progressBar.setContentView(R.layout.diolog);
+
+        TextView textVie=(TextView)progressBar.findViewById(R.id.dialog_txt);
+        textVie.setText(txt);
+        progressBar.show();}
+
+    private void diolag() {
+        progressBar.cancel();
+        Intent i = new Intent(Urunler.this, Siparis_sayfasi.class);
+        i.putExtra("sayfa_name", gelen_sayfa_name);
+        i.putExtra("satici_logo", gelen_sayfa_logo);
+        startActivity(i);
     }
 
 
@@ -331,7 +362,7 @@ public class Urunler extends AppCompatActivity implements adet_interface {
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
-                if (e == null && objects.size()>0) {
+                if (e == null && objects.size() > 0) {
                     for (int adet_sayi = 0; adet_sayi < objects.size(); adet_sayi++) {
                         try {
                             eski_siparis_cek(objects.get(adet_sayi).getRelation("siparis_ayrinti").getQuery());
@@ -346,35 +377,34 @@ public class Urunler extends AppCompatActivity implements adet_interface {
                         adet1 = String.valueOf(adet[0]);
                         tv.setText(adet1);
                     }
-                }
-                else if (objects.size()==0)
+                } else if (objects.size() == 0)
                     databasevericek();
             }
         });
 
 
-
     }
 
-    ArrayList<dict> eskisiparis_arr=new ArrayList<>();
+    ArrayList<dict> eskisiparis_arr = new ArrayList<>();
 
     private void eski_siparis_cek(ParseQuery<ParseObject> siparis_ayrinti) {
-        siparis_ayrinti.whereEqualTo("durum",true);
-            siparis_ayrinti.findInBackground(new FindCallback<ParseObject>() {
-                @Override
-                public void done(List<ParseObject> objects, ParseException e) {
-                    if (e == null && objects.size()>0){
-                        for (int i=0;i<objects.size();i++){
-                            dict dict=new dict();
-                            dict.setKey(objects.get(i).getString("urun_id"));
-                            dict.setValue(objects.get(i).getString("adet"));
-                            eskisiparis_arr.add(dict);
-                        }
+        siparis_ayrinti.whereEqualTo("durum", true);
+        siparis_ayrinti.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> objects, ParseException e) {
+                if (e == null && objects.size() > 0) {
+                    for (int i = 0; i < objects.size(); i++) {
+                        dict dict = new dict();
+                        dict.setKey(objects.get(i).getString("urun_id"));
+                        dict.setValue(objects.get(i).getString("adet"));
+                        eskisiparis_arr.add(dict);
+                    }
 
 
-                    } databasevericek();
                 }
-            });
+                databasevericek();
+            }
+        });
     }
 
 
@@ -394,10 +424,10 @@ public class Urunler extends AppCompatActivity implements adet_interface {
 
     private void alertfilter() {
 
-            final Dialog dialog = new Dialog(Urunler.this);
-            dialog.setContentView(R.layout.filter_cesit);
-            Button filtre, iptal;
-            LinearLayout linearLayout=dialog.findViewById(R.id.checkbox);
+        final Dialog dialog = new Dialog(Urunler.this);
+        dialog.setContentView(R.layout.filter_cesit);
+        Button filtre, iptal;
+        LinearLayout linearLayout = dialog.findViewById(R.id.checkbox);
         getcesitler(linearLayout);
 
         iptal = dialog.findViewById(R.id.cesit_iptal_btn);
@@ -413,12 +443,12 @@ public class Urunler extends AppCompatActivity implements adet_interface {
         filtre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    helper.clear();
-                    for (int x=0;arrdict.size()>x;x++){
-                    for (int i=0;yedek.size()>i;i++){
-                        if (yedek.get(i).getCesit().matches(arrdict.get(x).getValue())){
+                helper.clear();
+                for (int x = 0; arrdict.size() > x; x++) {
+                    for (int i = 0; yedek.size() > i; i++) {
+                        if (yedek.get(i).getCesit().matches(arrdict.get(x).getValue())) {
 
-                            urun_helper helper1=new urun_helper();
+                            urun_helper helper1 = new urun_helper();
                             helper1.setCesit(yedek.get(i).getCesit());
                             helper1.setAdet(yedek.get(i).getAdet());
                             helper1.setUrun_id(yedek.get(i).getUrun_id());
@@ -430,15 +460,14 @@ public class Urunler extends AppCompatActivity implements adet_interface {
                             helper1.setSatici(yedek.get(i).getSatici());
                             helper.add(helper1);
 
-                        }
-                        else {
+                        } else {
 
                         }
                     }
-                    }
-                    recycview(helper);
-                    dialog.cancel();
                 }
+                recycview(helper);
+                dialog.cancel();
+            }
 
 
         });
@@ -448,81 +477,96 @@ public class Urunler extends AppCompatActivity implements adet_interface {
     }
 
     private void getcesitler(final LinearLayout linearLayout) {
-    ParseQuery<ParseObject> query=new ParseQuery<ParseObject>("Sirketler");
-    query.whereEqualTo("sirket_Adi",gelen_sayfa_name);
-    query.findInBackground(new FindCallback<ParseObject>() {
-        @Override
-        public void done(List<ParseObject> objects, ParseException e) {
-            tekcesitcek(objects.get(0).getRelation("cesit").getQuery(),linearLayout);
-        }
-    });
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Sirketler");
+        query.whereEqualTo("sirket_Adi", gelen_sayfa_name);
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> objects, ParseException e) {
+                tekcesitcek(objects.get(0).getRelation("cesit").getQuery(), linearLayout);
+            }
+        });
 
 
     }
 
 
-    ArrayList<dict> arrdict =new ArrayList<>();
+    ArrayList<dict> arrdict = new ArrayList<>();
+
     private void tekcesitcek(final ParseQuery<ParseObject> cesit, final LinearLayout linearLayout) {
-    cesit.findInBackground(new FindCallback<ParseObject>() {
-        @Override
-        public void done(List<ParseObject> objects, ParseException e) {
-                if (e == null && objects.size()>0){
-                    for (int i=0;objects.size()>i;i++){
-                            CheckBox checkBox = new CheckBox(Urunler.this);
-                            checkBox.setText(objects.get(i).getString("cesit_ismi"));
-                            if(arrdict.size()>0){
-                                for (int x=0; arrdict.size()> x; x++){
-                                    if (checkBox.getText().toString().matches(arrdict.get(x).getValue())){
-                                        checkBox.setChecked(true);
-                                    }
+        cesit.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> objects, ParseException e) {
+                if (e == null && objects.size() > 0) {
+                    for (int i = 0; objects.size() > i; i++) {
+                        CheckBox checkBox = new CheckBox(Urunler.this);
+                        checkBox.setText(objects.get(i).getString("cesit_ismi"));
+                        if (arrdict.size() > 0) {
+                            for (int x = 0; arrdict.size() > x; x++) {
+                                if (checkBox.getText().toString().matches(arrdict.get(x).getValue())) {
+                                    checkBox.setChecked(true);
                                 }
                             }
-                            checkBox.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                                @Override
-                                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                    if (isChecked){
-                                        dict dict=new dict();
-                                        dict.setValue(buttonView.getText().toString());
-                                        dict.setKey("1");
-                                        arrdict.add(dict);
-                                    }
-                                    else{
-                                        for (int i=0;i<arrdict.size();i++){
-                                            if (arrdict.get(i).getValue().matches(buttonView.getText().toString())){
-                                                arrdict.remove(i);
-                                            }
+                        }
+                        checkBox.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                            @Override
+                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                if (isChecked) {
+                                    dict dict = new dict();
+                                    dict.setValue(buttonView.getText().toString());
+                                    dict.setKey("1");
+                                    arrdict.add(dict);
+                                } else {
+                                    for (int i = 0; i < arrdict.size(); i++) {
+                                        if (arrdict.get(i).getValue().matches(buttonView.getText().toString())) {
+                                            arrdict.remove(i);
                                         }
                                     }
                                 }
-                            });
+                            }
+                        });
 
                         linearLayout.addView(checkBox);
-
 
 
                     }
 
                 }
-        }
-    });
+            }
+        });
     }
-
 
     @Override
     protected void onStop() {
         super.onStop();
+        if (!nerden)
         urun_adapter.kaydet();
 
     }
 
+    private boolean nerden = false;
 
     //sepettekki sayi artis yeri
     @Override
     public void adet(int adet) {
         adet += Integer.parseInt(adet1);
         tv.setText(String.valueOf(adet));
+    }
+
+    @Override
+    public void durum(boolean durum) {
+        if (durum && nerden) {
+            diolag();
+        }
 
 
     }
+
+    @Override
+    public void degisenvarmi(boolean durum) {
+        if (durum && nerden)
+            diolag();
+    }
+
+
 }

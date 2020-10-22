@@ -13,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".animasyon_page"></activity>
+        <activity android:name=".Giris" />
         <activity android:name=".eski_siparis_Ayrinti" />
         <activity android:name=".Kisisel_Bilgi" />
         <activity android:name=".Eskisiparis" />
@@ -22,7 +23,7 @@
         <activity android:name=".Urunler" />
         <activity android:name=".Kisisel_bilgiler" />
         <activity android:name=".Anasayfa" />
-        <activity android:name=".Giris">
+        <activity android:name=".tanitim.first">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

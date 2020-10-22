@@ -37,7 +37,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
+            android:inputType="textPassword"
             android:hint="Sifre"
             android:ems="10"
             android:id="@+id/kayitol_sifre" />
@@ -56,7 +56,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
+            android:inputType="textPassword"
             android:hint="again sifre"
             android:ems="10"
             android:id="@+id/kayitol_againsifre" />

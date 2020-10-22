@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,26 +28,20 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.ParseRelation;
 import com.parse.ParseUser;
-
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import bolts.Continuation;
-import bolts.Task;
 
-public class Siparis_sayfasi extends AppCompatActivity {
-
+public class Siparis_sayfasi extends AppCompatActivity implements siparis_tmm_interface{
+    Dialog dialog;
     RecyclerView recyclerView;
     Toolbar toolbar;
     TextView totaltxt;
     Button siparis_tmm_btn;
     siparis_adapter adapter;
     int totalucret = 0;
-    String gelen_sayfa;
+    String gelen_sayfa,gelen_logo;
     ArrayList<siparis_helper> arrhelper=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +51,7 @@ public class Siparis_sayfasi extends AppCompatActivity {
         toolbar();
         totaltxt=findViewById(R.id.totalfiyat_txt);
         siparis_tmm_btn=findViewById(R.id.siparis_tmmla_btn);
+        startprogres("Siparis Listeniz Yukleniyor..");
        gelen_veri();
         recyclerView=findViewById(R.id.siparis_rec);
 
@@ -65,14 +61,24 @@ public class Siparis_sayfasi extends AppCompatActivity {
         siparis_tmm_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                siparis_adapter.siparis_tmm();
-                Intent i=new Intent(Siparis_sayfasi.this,Anasayfa.class);
-                startActivity(i);
+                startprogres("Siparisiniz tamamlaniyor..");
+                siparis_adapter.siparis_tmm(totalucret);
+
+
             }
         });
 
 
 
+    }
+
+    private void startprogres(String s) {
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setContentView(R.layout.diolog);
+
+        TextView textVie=(TextView)dialog.findViewById(R.id.dialog_txt);
+        textVie.setText(s);
+        dialog.show();
     }
 
     ArrayList<ParseObject> arrobject=new ArrayList<>();
@@ -93,6 +99,8 @@ public class Siparis_sayfasi extends AppCompatActivity {
                         onceki_data_get(objects.get(i).getRelation("siparis_ayrinti").getQuery(),sayac);
                 }
             }
+            else if (objects.size()==0)
+                dialog.cancel();
 
 
 
@@ -138,6 +146,8 @@ public class Siparis_sayfasi extends AppCompatActivity {
                     if (sayac == 0)
                         urun_bilgi_cek(arrdict);
                 }
+                else if (insideobject.size()==0)
+                    dialog.cancel();
             }
         });
     }
@@ -169,7 +179,7 @@ public class Siparis_sayfasi extends AppCompatActivity {
                     helper.setResim_url(imageUrl);
                     arrhelper.add(helper);
                 }
-
+                    dialog.cancel();
                     recycler(arrhelper);
                 }
 
@@ -177,11 +187,12 @@ public class Siparis_sayfasi extends AppCompatActivity {
         }
 
 
+
     }
 
 
     private void toolbar() {
-
+            dialog=new Dialog(this);
             toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
             setSupportActionBar(toolbar);
@@ -191,7 +202,10 @@ public class Siparis_sayfasi extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
-                    onBackPressed();
+                    Intent i=new Intent(Siparis_sayfasi.this,Urunler.class);
+                    i.putExtra("satici_name",gelen_sayfa);
+                    i.putExtra("satici_logo",gelen_logo);
+                    startActivity(i);
                 }
             });
 
@@ -199,7 +213,7 @@ public class Siparis_sayfasi extends AppCompatActivity {
 
     private void recycler(ArrayList<siparis_helper> helper) {
 
-        adapter = new siparis_adapter(this, siparis_helper.getdata(helper));
+        adapter = new siparis_adapter(this, siparis_helper.getdata(helper),this);
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -225,6 +239,7 @@ public class Siparis_sayfasi extends AppCompatActivity {
         if (b != null) {
 
             gelen_sayfa = (String) b.get("sayfa_name");
+            gelen_logo=(String) b.get("satici_logo");
 
         }
 
@@ -248,4 +263,18 @@ public class Siparis_sayfasi extends AppCompatActivity {
     }
 
 
+    @Override
+    public void durum(boolean durum) {
+        if (durum){
+            dialog.cancel();
+            Intent i=new Intent(Siparis_sayfasi.this,Anasayfa.class);
+            startActivity(i);
+        }
+    }
+
+    @Override
+    public void para(int para) {
+        totalucret-=para;
+        totaltxt.setText(String.valueOf(totalucret));
+    }
 }

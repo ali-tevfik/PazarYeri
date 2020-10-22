@@ -139,7 +139,9 @@ public class Kayit_ol extends AppCompatActivity {
                                 array.add(reminderList);
                                 objects.get(0).put("arr_adress", array);
                                 objects.get(0).saveInBackground();
-                                Intent i = new Intent(Kayit_ol.this, Anasayfa.class);
+                                Toast.makeText(Kayit_ol.this, "Kayit basarili! Lutfen Email dogrulamasini yapiniz!!", Toast.LENGTH_SHORT).show();
+                                ParseUser.logOut();
+                                Intent i = new Intent(Kayit_ol.this, Giris.class);
                                 startActivity(i);
 
                             }

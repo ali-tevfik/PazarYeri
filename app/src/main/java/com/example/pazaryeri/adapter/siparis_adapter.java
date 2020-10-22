@@ -18,6 +18,7 @@ import com.example.pazaryeri.R;
 import com.example.pazaryeri.helper.dict;
 import com.example.pazaryeri.helper.katagori_helper;
 import com.example.pazaryeri.helper.siparis_helper;
+import com.example.pazaryeri.siparis_tmm_interface;
 import com.parse.DeleteCallback;
 import com.parse.FindCallback;
 import com.parse.Parse;
@@ -41,6 +42,8 @@ public class siparis_adapter extends RecyclerView.Adapter<siparis_adapter.Holder
     private static siparis_helper allworthgetitem;
     LinearLayout linearLayout;
     private static Context mcontext;
+
+   private static siparis_tmm_interface tmm_interface ;
     public static ArrayList<dict> mlist = new ArrayList<>();
 
     @NonNull
@@ -57,7 +60,8 @@ public class siparis_adapter extends RecyclerView.Adapter<siparis_adapter.Holder
         holder.setdata(tıklananmanzara, position);
     }
 
-    public siparis_adapter(Context context, ArrayList<siparis_helper> getdata) {
+    public siparis_adapter(Context context, ArrayList<siparis_helper> getdata,siparis_tmm_interface tmm_interface) {
+        this.tmm_interface=tmm_interface;
 
         mlist.clear();
         adetkontrol = 0;
@@ -74,7 +78,6 @@ public class siparis_adapter extends RecyclerView.Adapter<siparis_adapter.Holder
 
     public class Holder extends RecyclerView.ViewHolder {
         ImageView img;
-        Button siparis_tmm_btn;
         TextView arttir, azalt, fiyat, urun_name, aciklama, adet_txt;
         LinearLayout delete_item;
         siparis_helper getitem;
@@ -99,6 +102,7 @@ public class siparis_adapter extends RecyclerView.Adapter<siparis_adapter.Holder
                         azalt.setEnabled(true);
                     adet_txt.setText(String.valueOf(adet));
                     getitem.setAdet(String.valueOf(adet));
+                    tmm_interface.para(-1*Integer.parseInt(getitem.getPara()));
                     update_mlist(getitem);
                 }
             });
@@ -113,6 +117,8 @@ public class siparis_adapter extends RecyclerView.Adapter<siparis_adapter.Holder
                         azalt.setEnabled(false);
                     adet_txt.setText(String.valueOf(adet));
                     getitem.setAdet(String.valueOf(adet));
+
+                    tmm_interface.para(Integer.parseInt(getitem.getPara()));
                     update_mlist(getitem);
                 }
             });
@@ -203,11 +209,11 @@ public class siparis_adapter extends RecyclerView.Adapter<siparis_adapter.Holder
 
     }
 
-    public static void siparis_tmm() {
-        find_relationitem();
+    public static void siparis_tmm(int totalucret) {
+        find_relationitem(totalucret);
     }
 
-    private static void find_relationitem() {
+    private static void find_relationitem(final int totalucret) {
         ParseQuery<ParseObject> query = new ParseQuery("siparis_sepeti");
         query.whereEqualTo("urun_sahibi", allworthgetitem.getUrun_sahibi());
         query.whereEqualTo("kullanici_id", ParseUser.getCurrentUser().getObjectId());
@@ -224,6 +230,7 @@ public class siparis_adapter extends RecyclerView.Adapter<siparis_adapter.Holder
                                 add_siparis(insideobjects);
                                 for (final ParseObject a : insideobjects) {
                                     a.put("durum", false);
+                                    a.put("ucret",String.valueOf(totalucret));
                                     for (dict dict : mlist) {
                                         if (dict.getKey().matches(a.getString("urun_id"))) {
                                             a.put("adet", dict.getValue());
@@ -258,6 +265,7 @@ public class siparis_adapter extends RecyclerView.Adapter<siparis_adapter.Holder
             object.saveInBackground(new SaveCallback() {
                 @Override
                 public void done(ParseException e) {
+                    tmm_interface.durum(true);
                     Toast.makeText(mcontext, "asd", Toast.LENGTH_SHORT).show();
                 }
             });

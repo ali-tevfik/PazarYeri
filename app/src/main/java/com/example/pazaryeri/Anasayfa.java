@@ -14,9 +14,13 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -30,6 +34,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 
@@ -37,7 +42,12 @@ import com.example.pazaryeri.adapter.katagoriadapter;
 import com.example.pazaryeri.drawer.MenuListFragment;
 import com.example.pazaryeri.helper.dict;
 import com.example.pazaryeri.helper.katagori_helper;
+
+
+import com.jpardogo.android.googleprogressbar.library.ChromeFloatingCirclesDrawable;
 import com.jpardogo.android.googleprogressbar.library.FoldingCirclesDrawable;
+import com.jpardogo.android.googleprogressbar.library.GoogleMusicDicesDrawable;
+import com.jpardogo.android.googleprogressbar.library.NexusRotationCrossDrawable;
 import com.mxn.soul.flowingdrawer_core.ElasticDrawer;
 import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
 import com.parse.FindCallback;
@@ -51,6 +61,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Anasayfa extends AppCompatActivity {
+
+    private static final int FOLDING_CIRCLES = 0;
+    private static final int MUSIC_DICES = 1;
+    private static final int NEXUS_CROSS_ROTATION = 2;
+    private static final int CHROME_FLOATING_CIRCLES = 3;
     katagoriadapter adapter;
     Toolbar toolbar;
     ArrayList<katagori_helper> helper = new ArrayList<>();
@@ -62,8 +77,6 @@ public class Anasayfa extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anasayfa);
         idupdate();
-        progressbar();
-
 
         recyclerView = findViewById(R.id.katagorirecyc);
         databasevericek();
@@ -72,9 +85,6 @@ public class Anasayfa extends AppCompatActivity {
 
     }
 
-    private void progressbar() {
-
-    }
 
 
     private void setupmenu() {
@@ -164,12 +174,15 @@ public class Anasayfa extends AppCompatActivity {
 
 
     }
-    ArrayList<Integer> arrindex=new ArrayList<>();
+
+
 
     private void idupdate() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
+
+
 
     private void recycview(ArrayList<katagori_helper> helper) {
 

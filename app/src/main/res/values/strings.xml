@@ -5,5 +5,19 @@
     <!-- Change the following strings as required -->
     <string name="back4app_app_id">9C7j6aU4uBWZIT1awEl6fnqt1TPz28hqHrb8zD6T</string>
     <string name="back4app_client_key">3H5KMqQClPtkoM3rSS5mLfXdKDpQjG8S5l54uj8p</string>
+    <string name="firstcolor_pref_key">0</string>
+    <string name="secondcolor_pref_key">1</string>
+    <string name="thirdcolor_pref_key">2</string>
+    <string name="fourthcolor_pref_key">3</string>
 
+
+    <string name="next">NEXT</string>
+    <string name="skip">SKIP</string>
+    <string name="start">GOT IT</string>
+
+    <string name="slide_1_title">Welcome to PazarYeri!</string>
+    <string name="slide_1_desc">Aciklamalar sonra eklenecektir!!</string>
+
+    <string name="slide_2_title">Sirketler bolumunde ekrani sola kaydirin!</string>
+    <string name="slide_2_desc">Ne mi var? Eski siparisleriniz,Profiliniz ve Cikis butonu var!!</string>
 </resources>

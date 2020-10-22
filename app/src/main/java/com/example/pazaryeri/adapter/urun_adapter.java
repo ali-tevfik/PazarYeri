@@ -17,6 +17,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pazaryeri.R;
+import com.example.pazaryeri.Urunler;
 import com.example.pazaryeri.adet_interface;
 import com.example.pazaryeri.helper.siparis_sepet_helper;
 import com.example.pazaryeri.helper.urun_helper;
@@ -68,12 +69,13 @@ public class urun_adapter extends RecyclerView.Adapter<urun_adapter.Holder> {
         holder.setdata(tiklananmanzara, position);
     }
 
-    adet_interface listener;
+   private static adet_interface listener;
 
     public urun_adapter(Context context, ArrayList<urun_helper> getdata, adet_interface listener) {
         this.listener = listener;
         adet_total = 0;
         this.context = context;
+        listener.durum(false);
         mcontext = context;
         layoutInflater = LayoutInflater.from(context);
         this.mdatalist = getdata;
@@ -125,7 +127,7 @@ public class urun_adapter extends RecyclerView.Adapter<urun_adapter.Holder> {
                     getTiklananmanzara.setAdet(a);
                     totaladet = totaladet + 1;
                     urun_adet.setText(String.valueOf(a));
-                    adet_azalt.setEnabled(true);
+
                     listener.adet(totaladet);
 
 
@@ -232,7 +234,6 @@ public class urun_adapter extends RecyclerView.Adapter<urun_adapter.Holder> {
         liste.add(siparislistesi_ekleme);
 
     }
-
     public static void kaydet() {
         int adet_nedir = 0;
 
@@ -271,6 +272,8 @@ public class urun_adapter extends RecyclerView.Adapter<urun_adapter.Holder> {
                     public void done(ParseException e) {
                         if (e == null) {
                             Toast.makeText(mcontext, "basarili", Toast.LENGTH_SHORT).show();
+                            listener.durum(true);
+
                         } else {
                             Log.d("a;slfjasf", e.getMessage());
                             Toast.makeText(mcontext, "a", Toast.LENGTH_SHORT).show();
@@ -283,6 +286,8 @@ public class urun_adapter extends RecyclerView.Adapter<urun_adapter.Holder> {
             } else if (totaladetbul() != adet_total) {
                 update();
             }
+            else
+                listener.degisenvarmi(true);
 
 
         } catch (Exception a) {
@@ -290,6 +295,7 @@ public class urun_adapter extends RecyclerView.Adapter<urun_adapter.Holder> {
         }
 
     }
+
 
     private static int totaladetbul() {
         int deger = 0;
@@ -363,8 +369,12 @@ public class urun_adapter extends RecyclerView.Adapter<urun_adapter.Holder> {
                                         object.saveInBackground(new SaveCallback() {
                                             @Override
                                             public void done(ParseException e) {
-                                                if (e == null)
+                                                if (e == null) {
+
+                                                    listener.durum(true);
+
                                                     Toast.makeText(mcontext, "oke", Toast.LENGTH_SHORT).show();
+                                                }
                                                 else {
                                                     Toast.makeText(mcontext, "nee", Toast.LENGTH_SHORT).show();
                                                     Log.d("error", e.getMessage());

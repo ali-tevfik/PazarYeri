@@ -64,7 +64,6 @@ public class eski_siparis_Ayrinti extends AppCompatActivity {
         }
 
     }
-
     private void getdata() {
         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("siparis");
         query.whereEqualTo("objectId", objectId);
@@ -74,10 +73,14 @@ public class eski_siparis_Ayrinti extends AppCompatActivity {
                 if (e == null && objects.size() > 0) {
                     for (final ParseObject a : objects) {
                         ucret_txt.setText("€" + a.getString("ucret"));
-                        if (a.getBoolean("durum"))
+                        if (a.getBoolean("durum")){
                             icon.setBackgroundColor((Color.parseColor("#6CBA29")));
-                        else
+
+                        }
+                        else{
                             icon.setBackgroundColor((Color.parseColor("#F4A72C")));
+                            menu.findItem(R.id.memu_profil_kaydet).setEnabled(false);
+                        }
                         ParseQuery<ParseObject> relation = a.getRelation("siparis_ayrinti").getQuery();
                         relation.findInBackground(new FindCallback<ParseObject>() {
                             @Override
@@ -170,10 +173,11 @@ public class eski_siparis_Ayrinti extends AppCompatActivity {
         toolbar.setTitle("Eski Siparisler");
         return true;
     }
-
+Menu menu;
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         menu.findItem(R.id.memu_profil_kaydet).setTitle("Kaydet");
+        this.menu=menu;
         return true;
     }
 

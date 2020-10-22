@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -23,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pazaryeri.tanitim.first;
 import com.parse.LogInCallback;
 import com.parse.Parse;
 import com.parse.Parse;
@@ -35,14 +37,12 @@ public class Giris extends AppCompatActivity {
 
 TextView yenikayit,mail,sifre;
 Button girisbtn;
-ImageView img;
+Dialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.giris);
-
-        database();
-        UserControl();
+        tanitim();
         idupdate();
 
 
@@ -59,15 +59,30 @@ ImageView img;
         girisbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dialog=new Dialog(Giris.this);
+                dialog.setCanceledOnTouchOutside(false);
+                dialog.setContentView(R.layout.diolog);
+
+                TextView textVie=(TextView)dialog.findViewById(R.id.dialog_txt);
+                textVie.setText("Bilgileriniz kontrol ediliyor..");
+                dialog.show();
                 ParseUser.logInInBackground(mail.getText().toString(),sifre.getText().toString(), new LogInCallback() {
                     @Override
                     public void done(ParseUser parseUser, ParseException e) {
 
                         if (parseUser != null) {
-
+                            if (parseUser.getBoolean("emailVerified")){
+                                dialog.cancel();
                             Intent i =new Intent(Giris.this,Anasayfa.class);
                             startActivity(i);
+                            }
+                            else {
+                                dialog.cancel();
+                                Toast.makeText(Giris.this, "Email dogrulamasini yapiniz!!", Toast.LENGTH_SHORT).show();
+                                ParseUser.logOut();
+                            }
                         } else {
+                            dialog.cancel();
                             ParseUser.logOut();
                             Toast.makeText(Giris.this, "Hatali Giris!", Toast.LENGTH_SHORT).show();
                         }
@@ -84,30 +99,15 @@ ImageView img;
 
     }
 
-    private void UserControl() {
-        ParseUser currentUser = ParseUser.getCurrentUser();
-        if (currentUser != null) {
-            Intent i=new Intent(this,animasyon_page.class);
-            startActivity(i);
-            // do stuff with the user
-        } else {
-            // show the signup or login screen
+    private void tanitim() {
+        PrefManager prefManager = new PrefManager(getApplicationContext());
+        if(prefManager.isFirstTimeLaunch()){
+            prefManager.setFirstTimeLaunch(false);
+            startActivity(new Intent(Giris.this, first.class));
+            finish();
         }
     }
 
-    private void database() {
-
-
-        Parse.initialize(new Parse.Configuration.Builder(this)
-                .applicationId(getString(R.string.back4app_app_id))
-                // if defined
-                .clientKey(getString(R.string.back4app_client_key))
-                .server(getString(R.string.back4app_server_url))
-                .build()
-        );
-
-
-    }
 
     private void idupdate() {
         yenikayit=findViewById(R.id.giris_kaydol);
