@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:orientation="vertical">
+    <TextView
+        android:layout_marginTop="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="26dp"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:text="Filter"
+        android:gravity="center"/>
+    <TextView
+        android:layout_marginTop="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cesitler"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:textColor="@color/beyaz"
+        android:background="@color/mavi"
+        android:textStyle="italic"
+        android:textSize="20dp"/>
+    <CheckBox
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Peynir"
+        android:id="@+id/cesit_filter_peynir"/>
+    <CheckBox
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sut urunleri ve kahvaltilik"
+        android:id="@+id/cesit_filter_sut_kahvalti"/>
+    <CheckBox
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Et ve tavuk"
+        android:id="@+id/cesit_filter_et_tavuk"/>
+    <CheckBox
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cikolata cesitleri"
+        android:id="@+id/cesit_filter_cikolata"/>
+    <CheckBox
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Baharatlar"
+        android:id="@+id/cesit_filter_baharatlar"/>
+    <CheckBox
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Icecekler"
+        android:id="@+id/cesit_filter_icecekler"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_marginTop="15dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Filtlere"
+            android:id="@+id/filtre_cesit_btn"
+            android:background="@drawable/yuvarlak_mavi"
+            android:textColor="@color/beyaz"
+            android:layout_margin="5dp"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Iptal"
+            android:id="@+id/cesit_iptal_btn"
+            android:background="@drawable/yuvarlak_mavi"
+            android:textColor="@color/beyaz"
+            android:layout_margin="5dp"/>
+    </LinearLayout>
+</LinearLayout>

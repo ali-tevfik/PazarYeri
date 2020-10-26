@@ -1,0 +1,2 @@
+rootProject.name='Pazar Yeri Control Panel'
+include ':app'

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:orientation="vertical">
+<TextView
+    android:layout_marginTop="25dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textSize="26dp"
+    android:textStyle="bold"
+    android:textColor="#000000"
+    android:text="Filter"
+    android:gravity="center"/>
+    <TextView
+        android:layout_marginTop="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Fiyat"
+        android:textColor="@color/beyaz"
+        android:background="@color/mavi"
+        android:textStyle="italic"
+        android:textSize="20dp"/>
+    <CheckBox
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Artandan azalana"
+        android:id="@+id/azalanfiyat_filter"/>
+    <CheckBox
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Azdan coka"
+        android:id="@+id/artanfiyat_filter"/>
+
+
+    <TextView
+        android:layout_marginTop="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bolge"
+        android:textColor="@color/beyaz"
+        android:background="@color/mavi"
+        android:textStyle="italic"
+        android:textSize="20dp"/>
+    <CheckBox
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Limburg"
+        android:id="@+id/filter_limburg"/>
+    <CheckBox
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Drenthe"
+        android:id="@+id/drenthe_filter"/>
+    <CheckBox
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Noord Holland"
+        android:id="@+id/filter_nordholland"/>
+    <CheckBox
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Zeeland"
+        android:id="@+id/zeeland_filter"/>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_marginTop="15dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Filtlere"
+            android:id="@+id/filtre_filter_btn"
+            android:background="@drawable/yuvarlak_mavi"
+            android:textColor="@color/beyaz"
+            android:layout_margin="5dp"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Iptal"
+            android:id="@+id/filter_iptal_btn"
+            android:background="@drawable/yuvarlak_mavi"
+            android:textColor="@color/beyaz"
+            android:layout_margin="5dp"/>
+    </LinearLayout>
+</LinearLayout>

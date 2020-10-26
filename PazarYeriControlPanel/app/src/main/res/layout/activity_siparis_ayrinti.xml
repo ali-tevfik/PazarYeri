@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".siparis_ayrinti">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="220dp"
+    android:layout_marginTop="15dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginLeft="5dp"
+    android:background="@drawable/yuvarlak_mavi"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Kisi Bilgileri"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/beyaz"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="25dp"/>
+
+
+    <TextView
+        android:layout_marginLeft="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/eskilist_ayrinti_isim"
+        android:textSize="18dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/beyaz"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:id="@+id/eskilist_ayrinti_adress"
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/beyaz"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:id="@+id/eskilist_ayrinti_land"
+        android:textSize="18dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/beyaz"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:id="@+id/eskilist_ayrinti_telefon"
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/beyaz"/>
+
+</LinearLayout>
+
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_marginTop="25dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginBottom="5dp"
+    android:background="@drawable/yuvarlak_acikmavi"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+        <TextView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginLeft="6dp"
+            android:layout_gravity="left"
+            android:background="@drawable/ecillipse_yuvarlak"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:text="Total =350"
+                android:textSize="17dp"
+                android:layout_marginLeft="20dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_weight="1"
+                android:textColor="@color/mavi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Adet "/>
+            <TextView
+                android:textColor="@color/mavi"
+                android:layout_weight="3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Urun ismi"/>
+            <TextView
+                android:textColor="@color/mavi"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fiyat "/>
+
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="100dp"
+            android:id="@+id/siparis_ayrinti_recyc"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_alignParentBottom="true"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+            <Button
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:id="@+id/eskilist_ayrinti_ok_btn"
+                android:layout_height="wrap_content"
+                android:background="@drawable/yuvarlak_mavi"
+                android:textColor="@color/beyaz"
+                android:text="Siparisi tamamla"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:paddingBottom="15dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Siparisi sil"
+                    android:textColor="@color/mavi"/>
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/cop_icon"
+                    android:layout_marginLeft="8dp"/>
+            </LinearLayout>
+</LinearLayout>
+
+
+
+
+
+</RelativeLayout>
+
+
+</LinearLayout>

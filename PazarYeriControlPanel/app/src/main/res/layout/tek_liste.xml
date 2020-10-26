@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/yuvarlak_acikmavi"
+    android:layout_margin="5dp"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_marginBottom="8dp"
+    android:id="@+id/tek_liste_linear"
+    android:layout_height="wrap_content">
+<LinearLayout
+    android:layout_width="30dp"
+    android:layout_gravity="center"
+    android:layout_height="match_parent"
+    >
+    <TextView
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginLeft="6dp"
+        android:layout_gravity="center"
+        android:background="@drawable/ecillipse_yuvarlak"/>
+</LinearLayout>
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_weight="3"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+    android:layout_marginLeft="2dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:textColor="#3f5aa6"
+        android:layout_height="wrap_content"
+        android:text="Osman Yetkin"
+        android:id="@+id/tekkisiisim"/>
+    <TextView
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:text="21-02-2020"
+        android:id="@+id/tekkisitelno"/>
+    <TextView
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:textColor="#000000"
+        android:layout_height="wrap_content"
+        android:text="Amsterdam"
+        android:layout_marginBottom="8dp"
+        android:id="@+id/tekkisibolge"/>
+</LinearLayout>
+
+<LinearLayout
+    android:layout_weight="1"
+    android:layout_width="wrap_content"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+
+
+    <TextView
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="55,-"
+        android:textSize="24dp"
+        android:textColor="#3f5aa6"
+        android:layout_gravity="center"
+        android:id="@+id/tekkisifiyat"/>
+
+    <ImageView
+        android:layout_width="15dp"
+        android:layout_marginTop="4dp"
+        android:layout_height="15dp"
+        android:layout_marginLeft="20dp"
+        android:src="@drawable/ic_next" />
+</LinearLayout>
+
+</LinearLayout>

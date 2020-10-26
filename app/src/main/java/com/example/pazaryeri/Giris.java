@@ -71,7 +71,7 @@ Dialog dialog;
                     public void done(ParseUser parseUser, ParseException e) {
 
                         if (parseUser != null) {
-                            if (parseUser.getBoolean("emailVerified")){
+                            if (parseUser.getBoolean("emailVerified") && !parseUser.getBoolean("satici")){
                                 dialog.cancel();
                             Intent i =new Intent(Giris.this,Anasayfa.class);
                             startActivity(i);

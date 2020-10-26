@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:elevation="25dp"
+    android:layout_marginBottom="8dp"
+
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="171dp">
+        <ImageView
+            android:id="@+id/tek_urun_img"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@mipmap/delete" />
+
+        <LinearLayout
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginLeft="8dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tek_urun_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:maxLines="1"
+                android:text="name" />
+
+            <TextView
+                android:id="@+id/tek_satici_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:layout_marginTop="5dp"
+                android:text="name" />
+
+
+            <TextView
+                android:maxLines="2"
+                android:id="@+id/tek_urun_aciklama"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+
+                android:text="name" />
+
+
+
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight="4"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="3.88"
+                android:gravity="center"
+                android:layout_marginTop="15dp"
+                android:id="@+id/tek_urun_fiyat"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+            <ImageView
+                android:layout_gravity="center"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:id="@+id/urun_tek_edit"
+                android:src="@drawable/edit_icon"/>
+
+            <ImageView
+                android:layout_width="20dp"
+                android:id="@+id/urun_tek_delete"
+                android:layout_marginLeft="8dp"
+                android:layout_gravity="center"
+                android:layout_height="20dp"
+                android:src="@drawable/cop_icon"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    v</androidx.cardview.widget.CardView>
