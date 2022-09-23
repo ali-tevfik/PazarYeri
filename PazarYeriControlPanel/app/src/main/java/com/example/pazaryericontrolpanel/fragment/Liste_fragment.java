@@ -111,7 +111,6 @@ public class Liste_fragment extends Fragment {
         SimpleDateFormat start = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat finish = new SimpleDateFormat("dd/MM/yyyy");
         Date d = new Date();
-        d.a;
         String today = finish.format(d);
         Toast.makeText(context, today, Toast.LENGTH_SHORT).show();
 

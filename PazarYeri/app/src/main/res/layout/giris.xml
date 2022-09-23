@@ -12,31 +12,35 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <androidx.appcompat.widget.Toolbar
-            android:background="@color/beyaz"
             android:layout_width="match_parent"
-            android:layout_height="75dp">
+            android:layout_height="75dp"
+            android:background="@color/beyaz">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Giris"
+                android:gravity="left"
+                android:text="Logn in"
                 android:textColor="#000000"
                 android:textSize="20dp"
-                android:textStyle="bold"
-                android:gravity="left"/>
+                android:textStyle="bold" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right">
+
                 <TextView
+                    android:id="@+id/giris_kaydol"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Kaydol"
-                    android:id="@+id/giris_kaydol"
                     android:layout_marginRight="15dp"
+                    android:text="Sign up"
                     android:textColor="#808080"
                     android:textSize="20dp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
     </RelativeLayout>
@@ -57,20 +61,11 @@
 
 
         <ImageView
-            android:layout_width="155dp"
-            android:layout_height="155dp"
-            android:src="@drawable/ic_launcher_foreground"
-            android:layout_gravity="center_horizontal"/>
-        <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Pazar Yeri"
-            android:gravity="center"
-            android:layout_marginTop="15dp"
-            android:textColor="@color/mavi"
-            android:textSize="30dp"
+            android:layout_height="250dp"
+            android:src="@drawable/logo"
+            android:layout_gravity="center_horizontal"/>
 
-            android:textStyle="italic"/>
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_marginTop="25dp"
@@ -83,13 +78,13 @@
 
 
             <EditText
+                android:id="@+id/kuladigiris"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/mavi"
-                android:inputType="textPersonName"
-                android:hint="Kullanici adi yada E-mail"
                 android:ems="10"
-                android:id="@+id/kuladigiris" />
+                android:hint="User name or email"
+                android:inputType="textPersonName"
+                android:textColor="@color/mavi" />
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -102,23 +97,25 @@
             android:outlineAmbientShadowColor="@color/mavi"
             android:layout_height="wrap_content"
             android:id="@+id/inputpass">
+
             <EditText
+                android:id="@+id/sifregiris"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:imeOptions="actionSend"
-                android:hint="Sifrenizi giriniz"
                 android:ems="10"
-                android:id="@+id/sifregiris" /></com.google.android.material.textfield.TextInputLayout>
+                android:hint="password"
+                android:imeOptions="actionSend"
+                android:inputType="textPassword" /></com.google.android.material.textfield.TextInputLayout>
+
         <Button
+            android:id="@+id/grsbtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Giris"
-            android:background="@drawable/yuvarlak_mavi"
-            android:layout_marginTop="25dp"
             android:layout_gravity="center"
-            android:textColor="@color/beyaz"
-            android:id="@+id/grsbtn"></Button>
+            android:layout_marginTop="25dp"
+            android:background="@drawable/yuvarlak_mavi"
+            android:text="Sign in"
+            android:textColor="@color/beyaz"></Button>
     </LinearLayout>
 
 </LinearLayout>

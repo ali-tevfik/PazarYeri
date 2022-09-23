@@ -24,12 +24,12 @@
 
 
             <EditText
+                android:id="@+id/kisisel_bilgi_isim"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:hint="Isim"
                 android:ems="10"
-                android:id="@+id/kisisel_bilgi_isim" />
+                android:hint="Name"
+                android:inputType="textPersonName" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -45,12 +45,12 @@
 
 
             <EditText
+                android:id="@+id/kisisel_bilgi_soyad"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:hint="Soyisim"
                 android:ems="10"
-                android:id="@+id/kisisel_bilgi_soyad" />
+                android:hint="Surname"
+                android:inputType="textPersonName" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -70,12 +70,12 @@
 
 
         <EditText
+            android:id="@+id/kisisel_bilgi_mail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:hint="Mail adresiniz"
             android:ems="10"
-            android:id="@+id/kisisel_bilgi_mail" />
+            android:hint="Email"
+            android:inputType="textPersonName" />
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -91,13 +91,13 @@
 
 
         <EditText
+            android:id="@+id/kisisel_bilgi_telno"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
-            android:maxLength="10"
-            android:hint="Telefon numarasi"
             android:ems="10"
-            android:id="@+id/kisisel_bilgi_telno" />
+            android:hint="Number"
+            android:inputType="number"
+            android:maxLength="10" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -134,12 +134,12 @@
         android:layout_height="wrap_content">
 
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Sehir"
-            android:ems="10"
-            android:id="@+id/kisisel_sehir" />
+    <EditText
+        android:id="@+id/kisisel_sehir"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="City" />
     </com.google.android.material.textfield.TextInputLayout>
     <LinearLayout
 
@@ -181,13 +181,13 @@
 
 
             <EditText
+                android:id="@+id/kisisel_bilgi_evnumarasi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:hint="Ev numarasi"
-                android:maxLength="3"
                 android:ems="10"
-                android:id="@+id/kisisel_bilgi_evnumarasi" />
+                android:hint="House number"
+                android:inputType="number"
+                android:maxLength="3" />
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="wrap_content"
@@ -202,13 +202,13 @@
 
 
             <EditText
+                android:id="@+id/kisisel_bilgi_kat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:maxLength="2"
-                android:hint="Kat"
                 android:ems="10"
-                android:id="@+id/kisisel_bilgi_kat" />
+                android:hint="Extra"
+                android:inputType="number"
+                android:maxLength="2" />
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>

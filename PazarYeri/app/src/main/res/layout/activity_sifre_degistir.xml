@@ -11,28 +11,30 @@
         android:orientation="vertical">
 
         <include layout="@layout/toolbar"/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:layout_marginTop="5dp"
-            android:hint="Eski Sifrenizi Giriniz"
-            android:id="@+id/sifredegistir_eskisifre"/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:layout_marginTop="5dp"
-            android:hint="Yeni Sifrenizi Giriniz"
-            android:id="@+id/sifredegistir_yenisifre1"/>
 
         <EditText
+            android:id="@+id/sifredegistir_eskisifre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="1"
             android:layout_marginTop="5dp"
-            android:hint="Yeni Sifrenizi Bir Kez Daha Giriniz"
-            android:id="@+id/sifredegistir_yenisifre2"/>
+            android:hint="Last password"
+            android:maxLines="1" />
+
+        <EditText
+            android:id="@+id/sifredegistir_yenisifre1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:hint="New pasword"
+            android:maxLines="1" />
+
+        <EditText
+            android:id="@+id/sifredegistir_yenisifre2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:hint="New password again"
+            android:maxLines="1" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

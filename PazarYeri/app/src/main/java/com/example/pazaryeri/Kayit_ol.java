@@ -39,9 +39,14 @@ public class Kayit_ol extends AppCompatActivity {
 // Set the user's username and password, which can be obtained by a forms
                 user.setUsername(mail.getText().toString());
                 user.setEmail(mail.getText().toString());
-                if (sifre.getText().toString().matches(againsifre.getText().toString()))
+                if (!sifre.getText().toString().matches(againsifre.getText().toString())) {
                     user.setPassword(againsifre.getText().toString());
-
+                    Toast.makeText(Kayit_ol.this, "girdi", Toast.LENGTH_SHORT).show();
+                    }
+                else {
+                    Log.d("sifre ayni degil", "tekrar dene");
+                    Log.d("sifre  " + againsifre.getText().toString(), " again "+sifre.getText().toString());
+                }
                 user.signUpInBackground(new SignUpCallback() {
                     @Override
                     public void done(ParseException e) {
@@ -61,7 +66,7 @@ public class Kayit_ol extends AppCompatActivity {
                         } else {
                             Log.d("giris basarisiz", e.getMessage());
                             ParseUser.logOut();
-                            Toast.makeText(Kayit_ol.this, "basarisiz", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Kayit_ol.this, "basarisiz " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

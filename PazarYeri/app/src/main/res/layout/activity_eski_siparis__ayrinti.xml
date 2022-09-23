@@ -54,29 +54,30 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:text="Piece"
                     android:textColor="@color/mavi"
                     android:textSize="20dp"
-                    android:textStyle="bold"
+                    android:textStyle="bold" />
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Adet "/>
-                <TextView
-                    android:textStyle="bold"
-                    android:textColor="@color/mavi"
                     android:layout_weight="3"
-                    android:layout_width="wrap_content"
-                    android:textSize="20dp"
-                    android:layout_height="wrap_content"
-                    android:text="Urun ismi"/>
-                <TextView
+                    android:text="Product"
                     android:textColor="@color/mavi"
                     android:textSize="20dp"
-                    android:textStyle="bold"
-                    android:layout_weight="2"
+                    android:textStyle="bold" />
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Star"/>
+                    android:layout_weight="2"
+                    android:textColor="@color/mavi"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
 
 
             </LinearLayout>

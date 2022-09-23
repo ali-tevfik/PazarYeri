@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="Satici Bilgileri"
+        android:text="Seller information"
         android:textColor="@color/beyaz"
         android:textSize="25dp"
         android:textStyle="bold" />

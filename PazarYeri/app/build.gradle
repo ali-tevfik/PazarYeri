@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.3"
 
     defaultConfig {
         applicationId "com.example.pazaryeri"
@@ -29,14 +28,14 @@ dependencies {
     implementation 'androidx.viewpager:viewpager:1.0.0'
 //drawer library
     implementation "androidx.viewpager:viewpager:1.0.0"
-    compile 'com.jpardogo.googleprogressbar:library:1.2.0'
+    implementation 'com.jpardogo.googleprogressbar:library:1.2.0'
     implementation 'com.mxn.soul:flowingdrawer-core:2.1.0'
     implementation 'com.nineoldandroids:library:2.4.0'
 
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation('com.google.api-client:google-api-client-android:1.23.0')
-    compile 'com.joanzapata.iconify:android-iconify-fontawesome:2.1.+'
+    implementation 'com.joanzapata.iconify:android-iconify-fontawesome:2.1.+'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.google.android.material:material:1.0.0'
