@@ -18,6 +18,7 @@
         android:layout_height="18dp"
         android:layout_marginLeft="6dp"
         android:layout_gravity="center"
+        android:id="@+id/order_status"
         android:background="@drawable/ecillipse_yuvarlak"/>
 </LinearLayout>
 <LinearLayout

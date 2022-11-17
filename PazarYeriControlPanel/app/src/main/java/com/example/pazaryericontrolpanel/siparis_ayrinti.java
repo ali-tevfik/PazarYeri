@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -24,6 +25,7 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,16 +35,51 @@ public class siparis_ayrinti extends AppCompatActivity {
     RecyclerView recyclerView;
     siparis_ayrinti_adapter adapter;
     String getobjectid, adet;
-    Button oke;
+    Button order_complete;
     TextView name, land, telefon, adress;
+    Boolean order;
+    Dialog progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_siparis_ayrinti);
-        gelendata();
         idupdate();
+        showdialog("Even Wachten");
+
+        gelendata();
         getdata();
+        order_complete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("siparis");
+                query.whereEqualTo("objectId", getobjectid);
+                query.findInBackground(new FindCallback<ParseObject>() {
+                    @Override
+                    public void done(List<ParseObject> objects, ParseException e) {
+                        if (e == null && objects.size() > 0 )
+                        {
+                            for (ParseObject a:objects){
+                                a.put("durum", true);
+                                a.saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(ParseException e) {
+                                        if (e == null)
+                                            Toast.makeText(siparis_ayrinti.this, "Order completed", Toast.LENGTH_SHORT).show();
+                                        else
+                                            Toast.makeText(siparis_ayrinti.this, "Something wrong", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+                            
+                        }
+                    }
+                });
+                Intent i = new Intent(siparis_ayrinti.this, Anasayfa.class);
+                startActivity(i);
+            }
+        });
+
         adress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,8 +124,14 @@ public class siparis_ayrinti extends AppCompatActivity {
             public void done(List<ParseObject> objects, ParseException e) {
                 if (objects.size() > 0 && e == null) {
                     for (ParseObject a : objects) {
+                        order = false;
+                        if (a.getBoolean("durum") == true) {
+                            order_complete.setVisibility(View.GONE);
+                            order = a.getBoolean("durum");
+                        }
                         getuserdetails(a.getString("kullanici_id"));
                         getsiparisayrinti(a);
+
                     }
                 }
             }
@@ -127,6 +170,7 @@ int kontrol_adet=0;
                     for (ParseObject a : objects) {
                         siparis_ayrinti_helper oneitem = new siparis_ayrinti_helper();
                         oneitem.setAdet(adet);
+                        oneitem.setOrder_status(order);
                         oneitem.setFiyat(String.valueOf(Integer.parseInt(a.get("fiyat").toString()) *Integer.parseInt(adet)));
                         oneitem.setUrunname(a.getString("urun_ismi"));
                         helper.add(oneitem);
@@ -134,6 +178,7 @@ int kontrol_adet=0;
                             recycview(helper);
                     }
                 }
+                progressBar.cancel();
             }
         });
     }
@@ -191,7 +236,9 @@ int kontrol_adet=0;
     }
 
     private void idupdate() {
-
+        order = false;
+        progressBar = new Dialog(this);
+        order_complete = findViewById(R.id.eskilist_ayrinti_ok_btn);
         recyclerView = findViewById(R.id.siparis_ayrinti_recyc);
         name = findViewById(R.id.eskilist_ayrinti_isim);
         adress = findViewById(R.id.eskilist_ayrinti_adress);
@@ -199,6 +246,13 @@ int kontrol_adet=0;
         telefon = findViewById(R.id.eskilist_ayrinti_telefon);
 
     }
+    private void showdialog(String txt) {
+        progressBar.setCanceledOnTouchOutside(false);
+        progressBar.setContentView(R.layout.diolog);
+
+        TextView textVie=(TextView)progressBar.findViewById(R.id.dialog_txt);
+        textVie.setText(txt);
+        progressBar.show();}
 
     private void recycview(ArrayList<siparis_ayrinti_helper> helper) {
         adapter = new siparis_ayrinti_adapter(this, siparis_ayrinti_helper.getdata(helper));

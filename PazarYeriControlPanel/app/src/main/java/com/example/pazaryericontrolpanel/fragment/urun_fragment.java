@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.ColorRes;
@@ -46,6 +48,7 @@ public class urun_fragment extends Fragment {
     ArrayList<urun_helper> helper = new ArrayList<>();
     RecyclerView recyclerView;
     String sayfaname;
+    Dialog progressBar;
 
     @Nullable
     @Override
@@ -59,6 +62,8 @@ public class urun_fragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         iduplate();
+        showdialog("Even Wachten");
+
         getdata();
         setHasOptionsMenu(true);
 
@@ -78,59 +83,88 @@ public class urun_fragment extends Fragment {
 
 
     }
+    private void showdialog(String txt) {
+        progressBar.setCanceledOnTouchOutside(false);
+        progressBar.setContentView(R.layout.diolog);
 
+        TextView textVie=(TextView)progressBar.findViewById(R.id.dialog_txt);
+        textVie.setText(txt);
+        progressBar.show();}
     private void getdata() {
         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Sirketler");
         query.whereEqualTo("ids", ParseUser.getCurrentUser().getObjectId());
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
-                sayfaname=objects.get(0).getString("sirket_Adi");
-                ParseQuery<ParseObject> queryrelation = objects.get(0).getRelation("urunler").getQuery();
-                queryrelation.findInBackground(new FindCallback<ParseObject>() {
-                    @Override
-                    public void done(List<ParseObject> insadeobject, ParseException e) {
-                        if (e == null) {
+                try{
+                    sayfaname=objects.get(0).getString("sirket_Adi");
 
-                            for (ParseObject a : insadeobject) {
-                                urun_helper oneitem = new urun_helper();
-                                oneitem.setInfo(a.getString("info"));
-                                oneitem.setSirket_name(a.getString("satici"));
+                }
+                catch (Exception exception) {
+                    sayfaname = "";
+                }
+                try {
 
-                                //Resim CEk
-                                ParseFile postImage = a.getParseFile("img");
-                                String imageUrl = postImage.getUrl();//live url
-                                Uri imageUri = Uri.parse(imageUrl);
-                                oneitem.setCesit(a.getString("cesit"));
-                                oneitem.setObjectid(a.getObjectId());
-                                oneitem.setResim(imageUri.toString());
-                                oneitem.setFiyat(a.get("fiyat").toString());
-                                oneitem.setIsim(a.getString("urun_ismi"));
-                                helper.add(oneitem);
+
+                    ParseQuery<ParseObject> queryrelation = objects.get(0).getRelation("urunler").getQuery();
+                    queryrelation.findInBackground(new FindCallback<ParseObject>() {
+                        @Override
+                        public void done(List<ParseObject> insadeobject, ParseException e) {
+                            if (e == null) {
+
+                                for (ParseObject a : insadeobject) {
+                                    urun_helper oneitem = new urun_helper();
+                                    oneitem.setInfo(a.getString("info"));
+                                    oneitem.setSirket_name(a.getString("satici"));
+
+                                    //Resim CEk
+                                    ParseFile postImage = a.getParseFile("img");
+                                    String imageUrl = postImage.getUrl();//live url
+                                    Uri imageUri = Uri.parse(imageUrl);
+                                    oneitem.setCesit(a.getString("cesit"));
+                                    oneitem.setObjectid(a.getObjectId());
+                                    oneitem.setResim(imageUri.toString());
+                                    oneitem.setFiyat(a.get("fiyat").toString());
+                                    oneitem.setIsim(a.getString("urun_ismi"));
+                                    helper.add(oneitem);
+                                }
+
+                                recycview(helper);
                             }
-
-                            recycview(helper);
                         }
-                    }
-                });
+                    });
+                    progressBar.cancel();
+                }
+                catch (Exception exception)
+                {
+                    Toast.makeText(context, "No data", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
 
     private void iduplate() {
+        progressBar = new Dialog(context);
+
         yeniurunbtn = ((AppCompatActivity) context).findViewById(R.id.yeniurunbtn);
     }
 
     private void recycview(ArrayList<urun_helper> helper) {
 
-        recyclerView = ((AppCompatActivity) context).findViewById(R.id.recyc_urun);
-        adapter = new urun_adapter(context, urun_helper.getdata(helper));
-        recyclerView.setAdapter(adapter);
-        recyclerView.setHasFixedSize(true);
-        final LinearLayoutManager layoutManager = new LinearLayoutManager(context);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        try {
+            recyclerView = ((AppCompatActivity) context).findViewById(R.id.recyc_urun);
+            adapter = new urun_adapter(context, urun_helper.getdata(helper));
+            recyclerView.setAdapter(adapter);
+            recyclerView.setHasFixedSize(true);
+            final LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+            layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setItemAnimator(new DefaultItemAnimator());
+        }
+        catch (Exception e)
+        {
+            Log.d("error","rec error");}
+
     }
 
 

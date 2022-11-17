@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 public class siparis_ayrinti_helper {
     private  String adet,urunname,fiyat;
+    private  boolean order_status;
+
+
 
 
     public String getAdet() {
@@ -35,4 +38,11 @@ public class siparis_ayrinti_helper {
 
     public static ArrayList<siparis_ayrinti_helper> getdata(ArrayList<siparis_ayrinti_helper>a){return a;}
 
+    public boolean getOrder_status() {
+        return order_status;
+    }
+
+    public void setOrder_status(boolean order_status) {
+        this.order_status = order_status;
+    }
 }

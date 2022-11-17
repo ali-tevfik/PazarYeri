@@ -3,6 +3,7 @@ package com.example.pazaryericontrolpanel.urun;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pazaryericontrolpanel.Anasayfa;
@@ -44,6 +46,7 @@ public class ekle extends AppCompatActivity {
     Button kaydet, resimsec;
     ArrayList<ParseObject> arr = new ArrayList<>();
     String gelenObjectId;
+    Dialog progressBar;
     boolean gelen=false;
 
     @Override
@@ -51,11 +54,14 @@ public class ekle extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ekle);
         idler();
+        showdialog("Even Wachten");
+
         gelenyer();
         kaydet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (checktext()) {
+                    progressBar.show();
                     ParseQuery<ParseObject> anaobject = new ParseQuery<ParseObject>("Sirketler");
                     anaobject.whereEqualTo("ids", ParseUser.getCurrentUser().getObjectId());
                     Log.d("asd", ParseUser.getCurrentUser().getObjectId());
@@ -121,6 +127,7 @@ public class ekle extends AppCompatActivity {
 
     private void kaydet_data(final List<ParseObject> objects) {
 
+        Toast.makeText(this, "BURDAA", Toast.LENGTH_SHORT).show();
         final ParseRelation relation = objects.get(0).getRelation("urunler");
         final ParseQuery<ParseObject> relationquery = objects.get(0).getRelation("urunler").getQuery();
         relationquery.findInBackground(new FindCallback<ParseObject>() {
@@ -157,6 +164,7 @@ public class ekle extends AppCompatActivity {
     }
 
     private void git(String s) {
+        progressBar.cancel();
         Toast.makeText(ekle.this, s, Toast.LENGTH_SHORT).show();
         Intent i = new Intent(ekle.this, Anasayfa.class);
         startActivity(i);
@@ -188,6 +196,7 @@ public class ekle extends AppCompatActivity {
                 kaydet.setText("Kaydet");
                 add_mi = true;
                 resimsec.setText("Resim sec");
+                progressBar.cancel();
             } else {
                 kaydet.setText("Guncelle");
                 resimsec.setText("Resmi Guncelle");
@@ -198,6 +207,7 @@ public class ekle extends AppCompatActivity {
                 info.setText(getIntent().getStringExtra("info"));
                 cesit.setText(getIntent().getStringExtra("cesit"));
                 Picasso.get().load(getIntent().getStringExtra("resimurl")).into(img);
+                progressBar.cancel();
             }
 
         } catch (Exception e) {
@@ -206,9 +216,17 @@ public class ekle extends AppCompatActivity {
 
 
     }
+    private void showdialog(String txt) {
+        progressBar.setCanceledOnTouchOutside(false);
+        progressBar.setContentView(R.layout.diolog);
+
+        TextView textVie=(TextView)progressBar.findViewById(R.id.dialog_txt);
+        textVie.setText(txt);
+        progressBar.show();}
 
 
     private void idler() {
+        progressBar = new Dialog(this);
         name = findViewById(R.id.urun_ekle_name);
         fiyat = findViewById(R.id.urun_ekle_fiyat);
         info = findViewById(R.id.urun_ekle_info);

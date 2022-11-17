@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -36,12 +37,14 @@ public class eski_siparis_Ayrinti extends AppCompatActivity {
     String objectId, sirket_name, get_tarih;
     ArrayList<eskisiparisayrinti_helper> arrhelper = new ArrayList<>();
     TextView satici,tarih;
+    Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eski_siparis__ayrinti);
         idupdate();
+        startprogres("Even Wachten");
         gelenveri();
 
         recyclerView = findViewById(R.id.siparis_ayrinti_recyc);
@@ -49,7 +52,14 @@ public class eski_siparis_Ayrinti extends AppCompatActivity {
         getdata();
 
     }
+    private void startprogres(String s) {
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setContentView(R.layout.diolog);
 
+        TextView textVie=(TextView)dialog.findViewById(R.id.dialog_txt);
+        textVie.setText(s);
+        dialog.show();
+    }
     private void gelenveri() {
         Intent i = getIntent();
         Bundle b = i.getExtras();
@@ -99,6 +109,8 @@ public class eski_siparis_Ayrinti extends AppCompatActivity {
                         });
                     }
                 }
+                else
+                    dialog.cancel();
             }
         });
 
@@ -114,6 +126,7 @@ public class eski_siparis_Ayrinti extends AppCompatActivity {
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
+                if (e == null && objects.size() > 0){
                 control1++;
                 eskisiparisayrinti_helper helper = new eskisiparisayrinti_helper();
                 helper.setStar(0);
@@ -125,6 +138,8 @@ public class eski_siparis_Ayrinti extends AppCompatActivity {
                 arrhelper.add(helper);
                 if (control == control1)
                     recycview(arrhelper);
+                }
+                    dialog.cancel();
             }
 
         });
@@ -147,6 +162,7 @@ public class eski_siparis_Ayrinti extends AppCompatActivity {
     TextView ucret_txt, icon;
 
     private void idupdate() {
+        dialog=new Dialog(this);
         toolbar = findViewById(R.id.toolbar);
         satici=findViewById(R.id.satici_bilgi_isim);
         tarih=findViewById(R.id.satici_bilgi_tarih);

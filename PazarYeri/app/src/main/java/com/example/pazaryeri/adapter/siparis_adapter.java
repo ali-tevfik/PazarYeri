@@ -227,10 +227,11 @@ public class siparis_adapter extends RecyclerView.Adapter<siparis_adapter.Holder
                         public void done(List<ParseObject> insideobjects, ParseException e) {
                             if (insideobjects.size() > 0 && e == null) {
 
-                                add_siparis(insideobjects);
+                                add_siparis(insideobjects,totalucret);
                                 for (final ParseObject a : insideobjects) {
                                     a.put("durum", false);
-                                    a.put("ucret",String.valueOf(totalucret));
+                                    Toast.makeText(mcontext, "fiyat "+String.valueOf(totalucret), Toast.LENGTH_LONG).show();
+                                    a.put("ucret",totalucret);
                                     for (dict dict : mlist) {
                                         if (dict.getKey().matches(a.getString("urun_id"))) {
                                             a.put("adet", dict.getValue());
@@ -254,7 +255,7 @@ public class siparis_adapter extends RecyclerView.Adapter<siparis_adapter.Holder
     private static int adetkontrol = 0;
     private static String objcet_id = null;
 
-    private static void add_siparis(final List<ParseObject> insideobjects) {
+    private static void add_siparis(final List<ParseObject> insideobjects, int totalucret) {
 
             adetkontrol++;
             ParseObject object = new ParseObject("siparis");
@@ -265,8 +266,11 @@ public class siparis_adapter extends RecyclerView.Adapter<siparis_adapter.Holder
             object.saveInBackground(new SaveCallback() {
                 @Override
                 public void done(ParseException e) {
-                    tmm_interface.durum(true);
-                    Toast.makeText(mcontext, "asd", Toast.LENGTH_SHORT).show();
+                    if (e == null) {
+                        tmm_interface.durum(true);
+                        object.put("prijs",String.valueOf(totalucret));
+
+                    }
                 }
             });
             objcet_id = object.getObjectId();

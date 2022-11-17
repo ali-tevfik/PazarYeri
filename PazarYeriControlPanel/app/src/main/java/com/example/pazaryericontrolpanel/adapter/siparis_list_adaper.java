@@ -1,6 +1,7 @@
 package com.example.pazaryericontrolpanel.adapter;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -57,7 +59,7 @@ public class siparis_list_adaper extends RecyclerView.Adapter<siparis_list_adape
     }
 
     public class Holder extends RecyclerView.ViewHolder {
-        TextView name, telno, bolge,  fiyat;
+        TextView name, telno, bolge,  fiyat, order_status;
         siparis_list_helper getitem;
         LinearLayout liner;
 
@@ -65,6 +67,7 @@ public class siparis_list_adaper extends RecyclerView.Adapter<siparis_list_adape
             super(itemView);
 
             name = (TextView) itemView.findViewById(R.id.tekkisitelno);
+            order_status = (TextView) itemView.findViewById(R.id.order_status);
             telno = itemView.findViewById(R.id.tekkisiisim);
             bolge = itemView.findViewById(R.id.tekkisibolge);
             fiyat = itemView.findViewById(R.id.tekkisifiyat);
@@ -79,6 +82,8 @@ public class siparis_list_adaper extends RecyclerView.Adapter<siparis_list_adape
             telno.setText(tiklananmanzara.getTelno());
             bolge.setText(tiklananmanzara.getBolge());
             fiyat.setText(tiklananmanzara.getFiyat());
+            if (tiklananmanzara.getorderStatus() == true)
+                order_status.setBackgroundResource(R.drawable.order_finished_progsess);
             getitem=tiklananmanzara;
 
 

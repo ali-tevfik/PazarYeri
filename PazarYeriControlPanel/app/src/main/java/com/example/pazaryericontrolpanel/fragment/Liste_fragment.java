@@ -3,6 +3,7 @@ package com.example.pazaryericontrolpanel.fragment;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -60,10 +61,12 @@ public class Liste_fragment extends Fragment {
     siparis_list_adaper adapter;
     ArrayList<siparis_list_helper> helper = new ArrayList<>();
     RecyclerView recyclerView;
-    String fiyat, bolge, objectid;
+    String  bolge, objectid;
     TextView satis_txt, kazanc_txt, musteri_txt;
-    String totalsatis = "0", totalkazanc = "0", totalmusteri;
-
+    boolean order_status;
+    int totalkazanc = 0, fiyat;
+    String totalsatis = "0", totalmusteri;
+    Dialog progressBar;
     // Button bolge_filter, fiyat_filter;
     @Nullable
     @Override
@@ -85,6 +88,7 @@ public class Liste_fragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         setHasOptionsMenu(true);//Make sure you have this line of code.
         idupdate();
+        showdialog("Even Wachten");
         getdata();
         setHasOptionsMenu(true);
 
@@ -100,6 +104,8 @@ public class Liste_fragment extends Fragment {
                 if (e == null && objects.size() > 0) {
                     getsiparis(objects.get(0).getString("sirket_Adi"));
                 }
+                else
+                    progressBar.cancel();
             }
         });
 
@@ -112,13 +118,13 @@ public class Liste_fragment extends Fragment {
         SimpleDateFormat finish = new SimpleDateFormat("dd/MM/yyyy");
         Date d = new Date();
         String today = finish.format(d);
-        Toast.makeText(context, today, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(context, today, Toast.LENGTH_SHORT).show();
 
 
         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("siparis");
         query.whereEqualTo("sirket_name", sirket_adi);
-        query.whereGreaterThanOrEqualTo("createdAt", today);
-        query.whereLessThan("createdAt", today);
+//        query.whereGreaterThanOrEqualTo("createdAt", today);
+//        query.whereLessThan("createdAt", today);
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
@@ -129,21 +135,27 @@ public class Liste_fragment extends Fragment {
                         a.getRelation("siparis_ayrinti").getQuery().findInBackground(new FindCallback<ParseObject>() {
                             @Override
                             public void done(List<ParseObject> c, ParseException e) {
-                                if (e == null)
+                                if (e == null) {
                                     totalsatis = String.valueOf(c.size() + Integer.parseInt(totalsatis));
-                                satis_txt.setText(totalsatis);
+                                    satis_txt.setText(totalsatis);
+                                     }
                             }
                         });
-                        fiyat = a.getString("ucret");
+
+
+                        order_status = a.getBoolean("durum");
+                        fiyat = a.getInt("ucret");
                         objectid = a.getObjectId();
-                        getuser(a.getString("kullanici_id"), fiyat, objectid);
+                        getuser(a.getString("kullanici_id"), fiyat, objectid, order_status);
                     }
                 }
+                else
+                    progressBar.cancel();
             }
         });
     }
 
-    private void getuser(String kullanici_id, final String fiyat, final String objectid) {
+    private void getuser(String kullanici_id, final int fiyat, final String objectid, final boolean order_status) {
         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("users");
         query.whereEqualTo("kisi_objectId", kullanici_id);
         query.findInBackground(new FindCallback<ParseObject>() {
@@ -158,32 +170,35 @@ public class Liste_fragment extends Fragment {
                             if (e == null && objects.size() > 0) {
                                 for (ParseObject a : objects) {
                                     bolge = a.getString("Bolge");
-                                    getuserdetails(querydetails, fiyat, objectid, bolge);
+                                    getuserdetails(querydetails, fiyat, objectid, bolge, order_status);
                                 }
                             }
                         }
                     });
 
                 }
+                else
+                    progressBar.cancel();
             }
         });
 
 
     }
 
-    private void getuserdetails(ParseQuery<ParseObject> querydetails, final String fiyat, final String objectid, final String bolge) {
+    private void getuserdetails(ParseQuery<ParseObject> querydetails, final int fiyat, final String objectid, final String bolge, final boolean order_status) {
         querydetails.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
                 if (objects.size() > 0 && e == null) {
                     for (ParseObject a : objects) {
-                        totalkazanc = String.valueOf(Integer.parseInt(totalkazanc) + Integer.parseInt(fiyat));
-                        kazanc_txt.setText("€" + totalkazanc);
+                        totalkazanc += fiyat;
+                        kazanc_txt.setText("€" + String.valueOf(totalkazanc));
                         siparis_list_helper oneitem;
                         oneitem = new siparis_list_helper();
                         oneitem.setFiyat("€" + fiyat);
                         oneitem.setObjectid(objectid);
                         oneitem.setBolge(bolge);
+                        oneitem.setorderStatus(order_status);
                         oneitem.setIsim(a.getString("isim") + " " + a.getString("soyisim"));
                         oneitem.setTelno(a.getString("Telefon_number"));
                         helper.add(oneitem);
@@ -192,11 +207,23 @@ public class Liste_fragment extends Fragment {
 
 
                 }
+                else
+                    progressBar.cancel();
             }
         });
+        progressBar.cancel();
     }
+    private void showdialog(String txt) {
+        progressBar.setCanceledOnTouchOutside(false);
+        progressBar.setContentView(R.layout.diolog);
+
+        TextView textVie=(TextView)progressBar.findViewById(R.id.dialog_txt);
+        textVie.setText(txt);
+        progressBar.show();}
 
     private void idupdate() {
+        order_status = false;
+        progressBar = new Dialog(context);
         recyclerView = ((AppCompatActivity) context).findViewById(R.id.eskilistrecyclerview);
         kazanc_txt = ((AppCompatActivity) context).findViewById(R.id.total_kazanc_Text);
         musteri_txt = ((AppCompatActivity) context).findViewById(R.id.rapor_musteri);

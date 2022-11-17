@@ -35,7 +35,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Satis"
+                android:text="Order piece"
                 android:textSize="20dp"
                 android:textColor="@color/beyaz"/>
             <TextView
@@ -43,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:text="20"
+                android:text="0"
                 android:textSize="19dp"
                 android:id="@+id/satis"
                 android:textColor="@color/beyaz"/>
@@ -62,7 +62,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Kazanc"
+                android:text="Brutto money"
                 android:textSize="20dp"
                 android:textColor="@color/beyaz"/>
             <TextView
@@ -70,7 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:text="155"
+                android:text="0"
                 android:textSize="19dp"
                 android:id="@+id/total_kazanc_Text"
                 android:textColor="@color/beyaz"/>
@@ -88,7 +88,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Total Sipraris"
+                android:text="Total order"
                 android:textSize="20dp"
                 android:textColor="@color/beyaz"/>
             <TextView
@@ -96,7 +96,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:text="15"
+                android:text="0"
                 android:textSize="19dp"
                 android:id="@+id/rapor_musteri"
                 android:textColor="@color/beyaz"/>

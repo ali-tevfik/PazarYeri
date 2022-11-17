@@ -5,7 +5,10 @@ import java.util.ArrayList;
 public class siparis_list_helper {
 
     private String siparisteslim,siparisveristarih,isim,telno,bolge,fiyat,objectid;
+    private  boolean orderStatus;
 
+    public  void setorderStatus(boolean orderStatus){this.orderStatus = orderStatus;}
+    public  boolean getorderStatus(){ return  this.orderStatus;}
     public String getObjectid() {
         return objectid;
     }
@@ -63,5 +66,6 @@ public class siparis_list_helper {
     }
 
 public static ArrayList<siparis_list_helper> getdata(ArrayList<siparis_list_helper>a){return a;}
+
 
 }

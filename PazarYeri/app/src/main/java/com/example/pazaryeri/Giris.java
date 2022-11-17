@@ -78,7 +78,7 @@ Dialog dialog;
                             }
                             else {
                                 dialog.cancel();
-                                Toast.makeText(Giris.this, "Email dogrulamasini yapiniz!!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Giris.this, "Please verify your Email!!", Toast.LENGTH_SHORT).show();
                                 ParseUser.logOut();
                             }
                         } else {

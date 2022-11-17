@@ -1,6 +1,8 @@
 package com.example.pazaryericontrolpanel.fragment;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,6 +25,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.pazaryericontrolpanel.Giris;
 import com.example.pazaryericontrolpanel.R;
 import com.example.pazaryericontrolpanel.adapter.siparis_list_adaper;
 import com.example.pazaryericontrolpanel.helper.siparis_list_helper;
@@ -47,15 +50,27 @@ public class My_profil_fragment extends Fragment {
     EditText sirket_name,isim,telefon_no,bilgiler;
     ImageView logo;
     TextView urun_adet;
+    Dialog progressBar;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        progressBar = new Dialog(context);
+
+        showdialog("Even Wachten");
+
         getdata();
         setHasOptionsMenu(true);
 
     }
 
+    private void showdialog(String txt) {
+        progressBar.setCanceledOnTouchOutside(false);
+        progressBar.setContentView(R.layout.diolog);
+
+        TextView textVie=(TextView)progressBar.findViewById(R.id.dialog_txt);
+        textVie.setText(txt);
+        progressBar.show();}
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -89,6 +104,7 @@ public class My_profil_fragment extends Fragment {
                         Picasso.get().load(imageUri.toString()).into(logo);
                     }
                 }
+                progressBar.cancel();
             }
         });
     }
@@ -135,8 +151,9 @@ public class My_profil_fragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.exit_menu:
-
-                break;
+                ParseUser.logOut();
+                Intent i = new Intent(myContext, Giris.class);
+                startActivity(i);
         }
         return true;
     }
